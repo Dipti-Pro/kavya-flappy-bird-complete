@@ -4,7 +4,7 @@ var score=0;
 var PLAY=1;
 var END=0;
 var gameState=PLAY;
-var music1;
+var music1,music2;
 
 
 
@@ -18,7 +18,8 @@ function preload(){
   balloon4 = loadAnimation("yellowBalloon.png","yellowBalloon.png","yellowBalloon.png");
   gameOverImg=loadImage("gameOver.png")
   restartImg = loadImage("Restart_button2.png")
-  music1=loadSound("music.mp3")
+ music1=loadSound("birdfly.wav")
+  music2=loadSound("music.wav")
 }
 
 function setup() {
@@ -55,7 +56,7 @@ function draw() {
  
 
   if (gameState===PLAY){
-    music1.play(true);
+   music2.stop()
     score = score + Math.round(getFrameRate()/60);
   restart.visible=false
   gameOver.visible=false
@@ -66,6 +67,7 @@ if(scene.x<0){
     
     if(keyDown("space") && bird.y >= 159) {
       bird.velocityY = -12;
+      music1.play()
     }
   
     bird.velocityY = bird.velocityY + 0.8
@@ -121,6 +123,7 @@ if(yellowBalloonGroup.isTouching(bird) || bird.y>600 ){
 
   else if (gameState === END) {
     music1.stop();
+    music2.play();
     gameOver.visible = true;
     restart.visible = true;
     
